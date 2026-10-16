@@ -5,59 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>日本推理大師－東野圭吾｜線上書展互動挑戰</title>
   <style>
-    :root { --navy:#173b5e; --orange:#ef6336; --cream:#fffdf8; --pale-blue:#eaf3f5; --muted:#60758a; --line:#d9e1e5; }
-    * {box-sizing:border-box}
-    body {margin:0;background:var(--cream);color:var(--navy);font-family:"Noto Sans TC","Microsoft JhengHei",sans-serif;line-height:1.7}
-    .hero {height:150px;background:linear-gradient(110deg,rgba(23,59,94,.72),rgba(23,59,94,.18)),repeating-linear-gradient(135deg,#c9b99f 0,#c9b99f 2px,#d8cbb8 2px,#d8cbb8 8px);border-bottom:4px solid #e6ddd0}
-    .wrap {width:min(920px,calc(100% - 32px));margin:auto;padding:30px 0 54px}
-    .eyebrow {display:inline-block;background:#fff0c5;color:#7a4a12;border-radius:30px;padding:4px 13px;font-size:13px;font-weight:700;margin-bottom:14px}
-    h1 {font-size:clamp(27px,4vw,36px);line-height:1.3;margin:6px 0 15px}
-    h2 {font-size:22px;margin:0 0 8px}
-    p {margin:8px 0}
-    .panel {background:var(--pale-blue);border-radius:17px;padding:20px;margin:22px 0}
-    .btn {display:inline-block;border:0;border-radius:12px;padding:13px 23px;min-height:48px;background:var(--orange);color:white;font-size:16px;font-weight:700;text-decoration:none;font-family:inherit;cursor:pointer}
-    .btn:hover {filter:brightness(.97)}
-    .checkline {display:flex;align-items:flex-start;gap:10px;margin:18px 0}
-    .checkline input {margin-top:7px;width:18px;height:18px;accent-color:var(--orange);flex-shrink:0}
-    .notice {font-size:13px;color:var(--muted)}
-    .error {background:#fff0eb;color:#9b3418;padding:12px 16px;border-radius:12px;margin-top:14px}
-    .hidden {display:none}
-    footer {border-top:1px solid var(--line);padding-top:18px;margin-top:32px;color:var(--muted);font-size:12px}
-    @media(max-width:600px){.hero{height:110px}.wrap{padding-top:22px}.panel{padding:17px}.btn{display:block;text-align:center;width:100%}}
+    :root { color-scheme: light; --navy:#173b5e; --cream:#fffdf8; --line:#d9e1e5; --orange:#ef6336; }
+    * { box-sizing: border-box; }
+    body { margin:0; background:var(--cream); color:var(--navy); font-family:"Noto Sans TC","Microsoft JhengHei",sans-serif; }
+    header { padding:12px 16px; background:var(--navy); color:white; display:flex; flex-wrap:wrap; gap:10px; justify-content:space-between; align-items:center; }
+    header strong { font-size:16px; }
+    header a { color:white; padding:7px 12px; border:1px solid #ffffff88; border-radius:8px; text-decoration:none; font-size:14px; }
+    main { max-width:1040px; margin:auto; padding:0 8px 12px; }
+    iframe { display:block; width:100%; min-height:900px; height:calc(100vh - 70px); border:0; background:white; }
+    .note { text-align:center; font-size:12px; padding:12px; color:#60758a; }
+    .note a { color:var(--navy); }
+    @media (max-width:600px) { header strong {font-size:14px;} iframe {min-height:760px; height:calc(100vh - 60px);} }
   </style>
 </head>
 <body>
-  <div class="hero" aria-hidden="true"></div>
-  <main class="wrap">
-    <div class="eyebrow">線上書展互動挑戰</div>
-    <h1>日本推理大師－東野圭吾</h1>
-    <p>根據題目中的線索，推理出正確的書名。</p>
-    <p>連續答對三題即可登記抽獎資料。準備好迎接挑戰了嗎？</p>
-    <section class="panel" aria-labelledby="rules-title">
-      <h2 id="rules-title">活動玩法</h2>
-      <p>每輪隨機抽出三題，每題四選一。三題全部答對，才能登記抽獎資料；只要答錯一題，就能重新抽題再挑戰。</p>
-      <p>挑戰次數不限。每次開始都會重新抽出三題。</p>
-    </section>
-    <label class="checkline" for="agreeRules">
-      <input type="checkbox" id="agreeRules">
-      <span>我已閱讀活動說明，了解成功闖關後需填寫姓名、Email 與手機號碼，供本活動抽獎及聯絡使用。</span>
-    </label>
-    <button class="btn" id="startBtn" type="button">同意並開始答題</button>
-    <div id="startError" class="error hidden" role="alert"></div>
-    <p class="notice">點選開始後會前往本活動的 Google Apps Script 網頁應用程式，完成答題及抽獎登記。</p>
-    <footer>本活動頁面僅供活動使用。個人資料蒐集告知事項請以正式活動頁面及主辦單位公告為準。</footer>
+  <header>
+    <strong>🔎 日本推理大師－東野圭吾｜線上書展互動挑戰</strong>
+    <a href="https://script.google.com/macros/s/AKfycbwvCfOYDJeVcsDj7rlFWNp1SspGKuvIFNkNRzll6351NxNFY6V8WdZ2i43kiuCZJDmQxQ/exec" target="_blank" rel="noopener noreferrer">另開視窗參加活動 ↗</a>
+  </header>
+  <main>
+    <iframe
+      title="東野圭吾推理闖關活動"
+      src="https://script.google.com/macros/s/AKfycbwvCfOYDJeVcsDj7rlFWNp1SspGKuvIFNkNRzll6351NxNFY6V8WdZ2i43kiuCZJDmQxQ/exec"
+      allow="clipboard-write"
+      referrerpolicy="strict-origin-when-cross-origin"
+    ></iframe>
+    <p class="note">若活動區域無法顯示，請使用上方「另開視窗參加活動」。</p>
   </main>
-  <script>
-    const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwvCfOYDJeVcsDj7rlFWNp1SspGKuvIFNkNRzll6351NxNFY6V8WdZ2i43kiuCZJDmQxQ/exec';
-    document.getElementById('startBtn').addEventListener('click', () => {
-      if (!document.getElementById('agreeRules').checked) {
-        const err = document.getElementById('startError');
-        err.textContent = '請先閱讀並勾選活動說明。';
-        err.classList.remove('hidden');
-        return;
-      }
-      window.location.assign(GAS_WEB_APP_URL);
-    });
-  </script>
 </body>
 </html>
