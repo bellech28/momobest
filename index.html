@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <base target="_top">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      --navy: #173b5e;
+      --navy2: #244e70;
+      --orange: #ef6336;
+      --cream: #fffdf8;
+      --paper: #f7f0e4;
+      --pale-blue: #eaf3f5;
+      --ink: #173b5e;
+      --muted: #60758a;
+      --line: #d9e1e5;
+      --green: #28784b;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; background: var(--cream); color: var(--ink);
+      font-family: "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.7;
+    }
+    .hero {
+      height: 150px; position: relative; overflow: hidden;
+      background:
+        linear-gradient(110deg, rgba(23,59,94,.72), rgba(23,59,94,.18)),
+        repeating-linear-gradient(135deg, #c9b99f 0, #c9b99f 2px, #d8cbb8 2px, #d8cbb8 8px);
+      border-bottom: 4px solid #e6ddd0;
+    }
+    /* 可將此區塊背景替換成圖書館擁有使用權的偵探風格主視覺圖片。 */
+    .hero::after {
+      content: ""; position: absolute; inset: 0;
+      background: linear-gradient(0deg, rgba(23,59,94,.12), transparent);
+    }
+    .wrap { width: min(920px, calc(100% - 32px)); margin: 0 auto; padding: 30px 0 54px; }
+    .eyebrow {
+      display: inline-block; background: #fff0c5; color: #7a4a12; border-radius: 30px;
+      padding: 4px 13px; font-size: 13px; font-weight: 700; margin-bottom: 14px;
+    }
+    h1 { font-size: clamp(27px, 4vw, 36px); line-height: 1.3; margin: 6px 0 15px; letter-spacing: .02em; }
+    h2 { font-size: 22px; margin: 0 0 8px; }
+    p { margin: 8px 0; }
+    .intro { margin-bottom: 24px; }
+    .panel { background: var(--pale-blue); border-radius: 17px; padding: 20px; margin: 22px 0; }
+    .card { background: white; border: 1px solid var(--line); border-radius: 16px; padding: 22px; margin: 16px 0; box-shadow: 0 5px 18px rgba(23,59,94,.04); }
+    .btn {
+      border: 0; border-radius: 12px; padding: 13px 23px; min-height: 48px;
+      background: var(--orange); color: white; font-size: 16px; font-weight: 700;
+      cursor: pointer; font-family: inherit; transition: transform .12s, opacity .12s;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn:disabled { opacity: .55; cursor: wait; transform: none; }
+    .btn.secondary { background: var(--navy); }
+    .btn.ghost { background: white; color: var(--navy); border: 1px solid var(--line); }
+    .row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+    .notice { font-size: 13px; color: var(--muted); }
+    .checkline { display: flex; align-items: flex-start; gap: 10px; margin: 18px 0; }
+    .checkline input { margin-top: 7px; width: 18px; height: 18px; accent-color: var(--orange); flex-shrink: 0; }
+    .progress { height: 7px; background: #e5ebee; border-radius: 9px; overflow: hidden; margin: 12px 0 22px; }
+    .progress > div { height: 100%; background: var(--orange); width: 0; transition: width .2s; }
+    .qhead { display: flex; justify-content: space-between; gap: 10px; align-items: center; margin-bottom: 8px; }
+    .qnum { font-size: 13px; font-weight: 700; color: var(--orange); letter-spacing: .04em; }
+    .clue { font-size: 18px; font-weight: 650; line-height: 1.65; margin: 10px 0 18px; white-space: pre-wrap; }
+    .options { display: grid; gap: 10px; }
+    .option { display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; cursor: pointer; background: #fff; }
+    .option:hover { border-color: #9db5c4; background: #fbfdfe; }
+    .option input { margin-top: 6px; accent-color: var(--orange); }
+    .letter { font-weight: 800; min-width: 24px; }
+    .field { display: grid; gap: 5px; margin: 15px 0; }
+    label { font-weight: 650; }
+    input[type="text"], input[type="email"], input[type="tel"] {
+      width: 100%; border: 1px solid #cbd7de; border-radius: 10px; padding: 12px 13px;
+      font: inherit; background: #fff; color: var(--ink);
+    }
+    input:focus { outline: 3px solid #f9d2c4; border-color: var(--orange); }
+    .status { padding: 14px 16px; border-radius: 12px; margin: 15px 0; }
+    .status.error { background: #fff0eb; color: #9b3418; }
+    .status.success { background: #e9f6ed; color: #1e633c; }
+    .center { text-align: center; padding: 28px 8px; }
+    .bigicon { font-size: 48px; line-height: 1.2; margin-bottom: 12px; }
+    .hidden { display: none !important; }
+    footer { border-top: 1px solid var(--line); padding-top: 18px; margin-top: 32px; color: var(--muted); font-size: 12px; }
+    @media (max-width: 600px) {
+      .hero { height: 110px; }
+      .wrap { padding-top: 22px; }
+      .panel, .card { padding: 17px; }
+      .btn { width: 100%; }
+      .row { display: grid; }
+    }
+  </style>
+</head>
+<body>
+  <div class="hero" aria-hidden="true"></div>
+  <main class="wrap">
+    <div class="eyebrow">線上書展互動挑戰</div>
+    <h1>日本推理大師－東野圭吾</h1>
+    <div class="intro">
+      <p>根據題目中的線索，推理出正確的書名。</p>
+      <p>連續答對三題即可登記抽獎資料。準備好迎接挑戰了嗎？</p>
+    </div>
+
+    <section id="home">
+      <div class="panel">
+        <h2>活動玩法</h2>
+        <p>每輪隨機抽出三題，每題四選一。三題全部答對，才能登記抽獎資料；只要答錯一題，就能重新抽題再挑戰。</p>
+        <p>挑戰次數不限。每次開始都會重新抽出三題。</p>
+      </div>
+      <label class="checkline">
+        <input type="checkbox" id="agreeRules">
+        <span>我已閱讀活動說明，了解成功闖關後需填寫姓名、Email 與手機號碼，供本活動抽獎及聯絡使用。</span>
+      </label>
+      <button class="btn" id="startBtn" onclick="startGame()">同意並開始答題</button>
+      <p class="notice" id="bankCount"></p>
+    </section>
+
+    <section id="quiz" class="hidden">
+      <div class="qhead"><strong>推理挑戰</strong><span class="notice" id="progressLabel">第 1 題／共 3 題</span></div>
+      <div class="progress"><div id="progressBar"></div></div>
+      <div id="questions"></div>
+      <div id="quizError" class="status error hidden" role="alert"></div>
+      <button class="btn" id="submitBtn" onclick="submitAnswers()">送出答案</button>
+      <button class="btn ghost" onclick="goHome()">返回活動首頁</button>
+    </section>
+
+    <section id="retry" class="hidden">
+      <div class="card center">
+        <div class="bigicon">🔎</div>
+        <h2>線索還差一點！</h2>
+        <p>本輪未能全數答對。別氣餒，重新抽出三題再挑戰一次吧！</p>
+        <div class="row" style="justify-content:center;margin-top:20px">
+          <button class="btn" onclick="startGame()">再挑戰一次</button>
+          <button class="btn ghost" onclick="goHome()">返回活動首頁</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="register" class="hidden">
+      <div class="card">
+        <div class="eyebrow">闖關成功</div>
+        <h2>恭喜你，推理成功！</h2>
+        <p>三題全數答對。請填寫以下資料，完成抽獎登記。</p>
+        <form id="entryForm" onsubmit="event.preventDefault(); registerEntry();">
+          <div class="field">
+            <label for="name">姓名 *</label>
+            <input id="name" name="name" type="text" autocomplete="name" maxlength="60" required>
+          </div>
+          <div class="field">
+            <label for="email">Email *</label>
+            <input id="email" name="email" type="email" autocomplete="email" maxlength="120" required>
+          </div>
+          <div class="field">
+            <label for="phone">手機號碼 *</label>
+            <input id="phone" name="phone" type="tel" autocomplete="tel" maxlength="20" placeholder="例如：0912345678" required>
+          </div>
+          <div class="panel">
+            <strong>個人資料蒐集告知事項（請依實際活動規則修訂）</strong>
+            <p class="notice">蒐集機關／單位：請填入主辦單位正式名稱。蒐集目的：本活動抽獎、得獎通知及活動聯絡。蒐集資料類別：姓名、Email、手機號碼。利用期間、地區、對象及方式：請依主辦單位實際作業與規定填寫。您可依個人資料保護法行使相關權利；如不提供必要資料，可能無法完成抽獎登記。資料保存期限及刪除方式請依主辦單位正式告知內容辦理。</p>
+          </div>
+          <label class="checkline">
+            <input id="consent" type="checkbox" required>
+            <span>我已閱讀並了解上述個人資料蒐集告知事項，同意主辦單位依告知目的處理及利用資料。 *</span>
+          </label>
+          <div id="registerError" class="status error hidden" role="alert"></div>
+          <button class="btn" id="registerBtn" type="submit">確認送出</button>
+        </form>
+      </div>
+    </section>
+
+    <section id="done" class="hidden">
+      <div class="card center">
+        <div class="bigicon">🎉</div>
+        <h2>恭喜完成推理挑戰！</h2>
+        <div class="status success">您的抽獎資料已成功送出，感謝參與！</div>
+        <p>請留意主辦單位後續公告或聯絡通知。</p>
+        <button class="btn secondary" onclick="goHome()">返回活動首頁</button>
+      </div>
+    </section>
+
+    <footer>
+      本活動頁面僅供活動使用。請勿在共用或公用電腦上留下個人資料。個資告知內容請由主辦單位依實際規範確認後正式發布。
+    </footer>
+  </main>
+
+  <script>
+    let currentRound = null;
+    let winToken = null;
+    let busy = false;
+
+    function showOnly(id) {
+      ['home', 'quiz', 'retry', 'register', 'done'].forEach(name => {
+        document.getElementById(name).classList.toggle('hidden', name !== id);
+      });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function setBusy(buttonId, value, label) {
+      const button = document.getElementById(buttonId);
+      if (!button) return;
+      button.disabled = value;
+      if (value) {
+        button.dataset.originalText = button.textContent;
+        button.textContent = label || '處理中…';
+      } else if (button.dataset.originalText) {
+        button.textContent = button.dataset.originalText;
+      }
+    }
+
+    function showError(id, message) {
+      const el = document.getElementById(id);
+      el.textContent = message;
+      el.classList.remove('hidden');
+    }
+
+    function clearError(id) {
+      const el = document.getElementById(id);
+      el.textContent = '';
+      el.classList.add('hidden');
+    }
+
+    google.script.run
+      .withSuccessHandler(config => {
+        document.getElementById('bankCount').textContent =
+          '目前可用題庫：' + config.activeQuestionCount + ' 題。';
+      })
+      .withFailureHandler(() => {
+        document.getElementById('bankCount').textContent = '題庫狀態暫時無法讀取，請稍後再試。';
+      })
+      .getAppConfig();
+
+    function startGame() {
+      if (busy) return;
+      if (!document.getElementById('agreeRules').checked) {
+        alert('請先閱讀並勾選活動說明。');
+        return;
+      }
+      busy = true;
+      setBusy('startBtn', true, '正在抽題…');
+      google.script.run
+        .withSuccessHandler(round => {
+          currentRound = round;
+          busy = false;
+          setBusy('startBtn', false);
+          renderQuestions(round);
+          showOnly('quiz');
+        })
+        .withFailureHandler(err => {
+          busy = false;
+          setBusy('startBtn', false);
+          alert((err && err.message) || '目前無法開始，請稍後再試。');
+        })
+        .startRound();
+    }
+
+    function renderQuestions(round) {
+      const container = document.getElementById('questions');
+      container.innerHTML = '';
+      round.questions.forEach((q, index) => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        const head = document.createElement('div');
+        head.className = 'qnum';
+        head.textContent = 'CASE ' + String(index + 1).padStart(2, '0');
+        const clue = document.createElement('div');
+        clue.className = 'clue';
+        clue.textContent = q.clue;
+        const options = document.createElement('div');
+        options.className = 'options';
+        q.options.forEach((text, i) => {
+          const letter = String.fromCharCode(65 + i);
+          const label = document.createElement('label');
+          label.className = 'option';
+          const radio = document.createElement('input');
+          radio.type = 'radio';
+          radio.name = 'q_' + q.id;
+          radio.value = letter;
+          radio.addEventListener('change', updateProgress);
+          const letterSpan = document.createElement('span');
+          letterSpan.className = 'letter';
+          letterSpan.textContent = letter + '.';
+          const textSpan = document.createElement('span');
+          textSpan.textContent = text;
+          label.append(radio, letterSpan, textSpan);
+          options.appendChild(label);
+        });
+        card.append(head, clue, options);
+        container.appendChild(card);
+      });
+      clearError('quizError');
+      updateProgress();
+    }
+
+    function updateProgress() {
+      if (!currentRound) return;
+      const answered = currentRound.questions.filter(q =>
+        document.querySelector('input[name="q_' + q.id + '"]:checked')
+      ).length;
+      document.getElementById('progressLabel').textContent = '已完成 ' + answered + '／3 題';
+      document.getElementById('progressBar').style.width = (answered / 3 * 100) + '%';
+    }
+
+    function submitAnswers() {
+      if (busy || !currentRound) return;
+      const answers = [];
+      for (const q of currentRound.questions) {
+        const selected = document.querySelector('input[name="q_' + q.id + '"]:checked');
+        if (!selected) {
+          showError('quizError', '請先完成全部三題，再送出答案。');
+          return;
+        }
+        answers.push({ id: q.id, choice: selected.value });
+      }
+      busy = true;
+      clearError('quizError');
+      setBusy('submitBtn', true, '正在核對答案…');
+      google.script.run
+        .withSuccessHandler(result => {
+          busy = false;
+          setBusy('submitBtn', false);
+          currentRound = null;
+          if (result.success) {
+            winToken = result.winToken;
+            showOnly('register');
+          } else {
+            showOnly('retry');
+          }
+        })
+        .withFailureHandler(err => {
+          busy = false;
+          setBusy('submitBtn', false);
+          showError('quizError', (err && err.message) || '核對失敗，請重新挑戰。');
+        })
+        .submitRound(currentRound.token, answers);
+    }
+
+    function registerEntry() {
+      if (busy || !winToken) return;
+      const formData = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        consent: document.getElementById('consent').checked
+      };
+      busy = true;
+      clearError('registerError');
+      setBusy('registerBtn', true, '正在送出資料…');
+      google.script.run
+        .withSuccessHandler(result => {
+          busy = false;
+          setBusy('registerBtn', false);
+          if (result.success) {
+            winToken = null;
+            document.getElementById('entryForm').reset();
+            showOnly('done');
+          } else {
+            showError('registerError', '送出失敗，請確認資料後重試。');
+          }
+        })
+        .withFailureHandler(err => {
+          busy = false;
+          setBusy('registerBtn', false);
+          showError('registerError', (err && err.message) || '送出失敗，請稍後再試。');
+        })
+        .registerParticipant(winToken, formData);
+    }
+
+    function goHome() {
+      currentRound = null;
+      winToken = null;
+      clearError('quizError');
+      clearError('registerError');
+      showOnly('home');
+    }
+  </script>
+</body>
+</html>
+
